@@ -1,4 +1,4 @@
-# Hack4SocialGood
+# NeverWalkAlone
 
 A voice recording and housing situation assessment application for social good initiatives. This project helps collect user stories and feedback about housing situations to better understand and support vulnerable populations.
 
