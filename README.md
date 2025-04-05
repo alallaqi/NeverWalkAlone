@@ -31,6 +31,28 @@ A voice recording and housing situation assessment application for social good i
 - Voice Recording Screen: Allows users to record their stories
 - Completion Screen: Thanks users for their participation
 
+### Screenshots
+
+Here are some screenshots of the application:
+
+#### Recording and Transcription
+![Recording playback and transcription](assets/images/screenshots/recording-transcription.png)
+
+#### Share Your Story
+![Share your story recording screen](assets/images/screenshots/share-story.png)
+
+#### Recording in Progress
+![Recording in progress](assets/images/screenshots/recording-progress.png)
+
+#### Completion with Shield
+![Completion screen with shield](assets/images/screenshots/completion-shield.png)
+
+#### Feedback Form
+![Feedback form](assets/images/screenshots/feedback-form.png)
+
+#### Support Needs Survey
+![Support needs survey](assets/images/screenshots/support-survey.png)
+
 ## Technologies Used
 
 - HTML5
