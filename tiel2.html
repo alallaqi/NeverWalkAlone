@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiel 2 – Deine Stimme</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <style>
+    :root {
+      --primary-color: #FFDE3A;
+      --text-color: #000000;
+      --border-color: #E4E4E4;
+      --background-color: #FFFFFF;
+      --recording-color: #F44336;
+      --button-color: #3F75DD;
+    }
+    
+    /* Basic styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    main {
+      flex: 1;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      height: 100%;
+    }
+    
+    /* Screen management */
+    .screen {
+      display: none;
+      width: 100%;
+    }
+    
+    .screen.active {
+      display: block;
+    }
+    
+    /* Text elements */
+    h1 {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      font-size: 28px;
+      margin-bottom: 40px;
+      max-width: 500px;
+      line-height: 1.3;
+    }
+    
+    /* Mascot styling */
+    .mascot-container {
+      position: relative;
+      width: 240px;
+      height: 200px;
+      margin: 0 auto 20px;
+    }
+    
+    .mascot-image {
+      width: 100%;
+      height: auto;
+    }
+    
+    /* Buttons */
+    .button {
+      background-color: var(--button-color);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 15px auto;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .button:hover {
+      opacity: 0.9;
+    }
+    
+    /* Recording specific styles */
+    .record-button {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: var(--recording-color);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin: 20px auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .record-button svg {
+      width: 50px;
+      height: 50px;
+    }
+    
+    .record-button:hover {
+      opacity: 0.9;
+    }
+    
+    .record-timer {
+      font-size: 36px;
+      margin: 20px 0;
+    }
+    
+    .recording-status {
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+    
+    /* Audio wave visualization */
+    .audio-wave {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    
+    .audio-wave .bar {
+      width: 6px;
+      margin: 0 2px;
+      border-radius: 3px;
+      background-color: #4285F4; /* Blue color for most bars */
+    }
+    
+    .audio-wave .bar:nth-child(3n) {
+      background-color: #FF7F00; /* Orange color for every third bar */
+    }
+    
+    /* Audio player controls */
+    .audio-player-container {
+      width: 100%;
+      max-width: 400px;
+      margin: 20px auto;
+    }
+    
+    .audio-player {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+    
+    .audio-controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .control-button {
+      background-color: var(--button-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control-button svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .control-button:hover {
+      opacity: 0.9;
+    }
+    
+    /* WhatsApp button */
+    .whatsapp-button {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 15px auto;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .whatsapp-button svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .whatsapp-button:hover {
+      opacity: 0.9;
+    }
+    
+    /* Thank you container */
+    .thank-you-container {
+      background-color: #F5F5F5;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+      width: 100%;
+      max-width: 500px;
+    }
+    
+    .completion-message {
+      font-size: 22px;
+      line-height: 1.4;
+      margin: 20px 0;
+      max-width: 500px;
+    }
+    
+    /* Transcription styles */
+    .transcription-container {
+      text-align: left;
+      background-color: white;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 20px 0;
+      width: 100%;
+      max-width: 500px;
+    }
+    
+    .transcription-text {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+      white-space: pre-wrap;
+    }
+    
+    .transcription-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .download-link {
+      background-color: var(--button-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .download-link svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .download-link:hover {
+      opacity: 0.9;
+    }
+    
+    /* Privacy screen styles */
+    .checkbox-container {
+      display: flex;
+      align-items: flex-start;
+      margin: 15px 0;
+      text-align: left;
+    }
+    
+    .checkbox-container input[type="checkbox"] {
+      margin-top: 4px;
+      margin-right: 12px;
+      width: 20px;
+      height: 20px;
+    }
+    
+    .checkbox-label {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
+    .privacy-text {
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      overflow-y: auto;
+      max-height: 200px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .privacy-text h3 {
+      margin-bottom: 10px;
+    }
+    
+    .privacy-text p {
+      margin-bottom: 15px;
+    }
+    
+    .button-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .mic-icon-container {
+      width: 60px;
+      height: 60px;
+      background-color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Privacy Screen Component -->
+    <privacy-screen id="privacy-component"></privacy-screen>
+    
+    <!-- Audio Recorder Component -->
+    <audio-recorder id="audio-recorder-component" style="display: none;"></audio-recorder>
+  </main>
+  
+  <!-- Import Web Components -->
+  <script src="/components/privacy-screen.js"></script>
+  <script src="/components/audio-recorder.js"></script>
+  
+  <script>
+    // Get URL parameters 
+    function getUrlParams() {
+      const params = {};
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      
+      for (const [key, value] of urlParams.entries()) {
+        params[key] = value;
+      }
+      
+      return params;
+    }
+    
+    // Get URL parameters and page type
+    const urlParams = getUrlParams();
+    const pageType = urlParams.type || 'default';
+    
+    console.log('Page type:', pageType);
+    
+    // Get component references
+    const privacyComponent = document.getElementById('privacy-component');
+    const audioRecorderComponent = document.getElementById('audio-recorder-component');
+    
+    // Listen for consent completion event
+    document.addEventListener('consent-completed', (event) => {
+      if (event.detail.consented) {
+        // Hide privacy component and show audio recorder
+        privacyComponent.style.display = 'none';
+        audioRecorderComponent.style.display = 'block';
+      }
+    });
+    
+    // Listen for recording completion event
+    document.addEventListener('recording-completed', (event) => {
+      console.log('Recording completed:', event.detail);
+      // Here you could save the data to a server, redirect to another page, etc.
+    });
+    
+    // Check if consent was already given in this session
+    function checkPreviousConsent() {
+      const consentGiven = sessionStorage.getItem('consentGiven');
+      if (consentGiven === 'true') {
+        privacyComponent.style.display = 'none';
+        audioRecorderComponent.style.display = 'block';
+      }
+    }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      checkPreviousConsent();
+    });
+  </script>
+</body>
+</html> 

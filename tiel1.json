@@ -1,0 +1,29 @@
+[
+    {
+      "type": "multiple_choice",
+      "question": "Welcher Bereich deines Lebens benötigt am meisten Unterstützung?",
+      "options": ["Wohnung", "Finanzen", "Bildung & Ausbildung", "Persönliche Probleme", "Soziale Fähigkeiten"]
+    },
+    {
+      "type": "slider",
+      "title": "Wohnen",
+      "question": "Wie zufrieden bist du mit deiner aktuellen Wohnsituation?",
+      "images": [
+        "/assets/images/housing/abdachlos.png", 
+        "/assets/images/housing/institution.png", 
+        "/assets/images/housing/keinstabil.png", 
+        "/assets/images/housing/wg.png",
+        "/assets/images/housing/Hausallien.png"
+      ]
+    },
+    {
+      "type": "dropdown",
+      "question": "Wie hast du davon erfahren?",
+      "options": ["Fachkraft", "Freunde", "Instagram"]
+    },
+    {
+      "type": "text",
+      "question": "Was möchtest du uns noch sagen?"
+    }
+  ]
+  

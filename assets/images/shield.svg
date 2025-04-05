@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 96" width="80" height="96">
+  <!-- Shield outer shape -->
+  <path d="M40,4 L71,20 C71,56 60,80 40,92 C20,80 9,56 9,20 L40,4 Z" 
+        fill="#F5BB00" stroke="#F59F00" stroke-width="4"/>
+  
+  <!-- Shield inner shape -->
+  <path d="M40,12 L62,24 C62,54 54,72 40,82 C26,72 18,54 18,24 L40,12 Z" 
+        fill="#FFCE35" stroke="none"/>
+</svg> 

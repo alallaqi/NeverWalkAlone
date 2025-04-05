@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiel 1 – Deine Stimme</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <!-- Load components -->
+  <script type="module" src="/components/multiple-choice.js"></script>
+  <script type="module" src="/components/free-text.js"></script>
+  <script type="module" src="/components/dropdown-select.js"></script>
+  <script type="module" src="/components/image-slider.js"></script>
+  <script type="module" src="/components/completion-screen.js"></script>
+  <script type="module" src="/components/housing-satisfaction.js"></script>
+  <!-- Load flow loader -->
+  <script type="module" src="/scripts/tiel1-loader.js"></script>
+  <style>
+    .screen {
+      display: none;
+    }
+    
+    .screen.active {
+      display: block;
+    }
+    
+    .welcome-heading {
+      font-size: 52px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #3F75DD, #7B5ADB);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+    }
+    
+    .welcome-text {
+      font-size: 24px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      max-width: 500px;
+      text-align: center;
+    }
+    
+    .welcome-mascot-container {
+      position: relative;
+      width: 300px;
+      height: 250px;
+      margin: 0 auto 30px;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+    
+    .welcome-badge {
+      position: absolute;
+      background-color: #FFDE3A;
+      color: #000;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-weight: bold;
+      font-size: 18px;
+      top: 20px;
+      right: -30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    .get-started-button {
+      background-color: #3F75DD;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 30px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 15px auto;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .get-started-button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+      <div class="wrapper">
+        <div class="welcome-mascot-container">
+          <img src="/assets/ChatGPT_Image_Apr_4__2025__07_46_19_PM-removebg-preview.png" alt="Wolf Mascot" class="mascot-image">
+          <div class="welcome-badge">Willkommen</div>
+        </div>
+        
+        <h1 class="welcome-heading">Deine Reise beginnt hier</h1>
+        
+        <p class="welcome-text">
+          Wir freuen uns, dass du hier bist! Deine Meinung ist uns wichtig und hilft uns, 
+          bessere Unterstützung für Menschen wie dich anzubieten.
+        </p>
+        
+        <button id="get-started-btn" class="get-started-button">Los geht's</button>
+      </div>
+    </div>
+    
+    <!-- Main Content Screen -->
+    <div id="main-content" class="screen">
+      <div class="wrapper">
+        <h1 class="page-title">Bewertung</h1>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 33%;"></div>
+        </div>
+        <div id="flow-container"></div>
+        <div class="mascot-container">
+          <img src="/assets/ChatGPT_Image_Apr_4__2025__07_46_19_PM-removebg-preview.png" alt="Wolf Mascot" id="mascot-image">
+        </div>
+        <button id="next-button">Weiter</button>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const welcomeScreen = document.getElementById('welcome-screen');
+      const mainContent = document.getElementById('main-content');
+      const getStartedBtn = document.getElementById('get-started-btn');
+      
+      // Check if this is the first visit in this session
+      function checkFirstVisit() {
+        const visited = sessionStorage.getItem('hasVisited');
+        if (visited) {
+          // If already visited, skip welcome screen
+          welcomeScreen.classList.remove('active');
+          mainContent.classList.add('active');
+        }
+      }
+      
+      // Event listener for the get started button
+      getStartedBtn.addEventListener('click', function() {
+        welcomeScreen.classList.remove('active');
+        mainContent.classList.add('active');
+        
+        // Set session storage to remember that user has visited
+        sessionStorage.setItem('hasVisited', 'true');
+      });
+      
+      // Call the function to check if this is the first visit
+      checkFirstVisit();
+    });
+  </script>
+</body>
+</html>
